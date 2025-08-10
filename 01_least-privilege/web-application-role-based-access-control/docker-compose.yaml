@@ -1,0 +1,8 @@
+services:
+  web-application-role-based-access-control:
+    image: php:8.2-apache
+    container_name: web-application-role-based-access-control
+    volumes:
+      - ./:/var/www/html/
+    ports:
+      - 80:80

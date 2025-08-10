@@ -1,0 +1,31 @@
+services:
+  api:
+    build: 
+      context: ./api-server
+      network: host
+#    image: dmportella/expressjs
+#    volumes:
+#      - ./api-server:/app
+#    command: ["node", "index.js"]
+    ports:
+      - "5000:5000"
+
+  frontend:
+    image: nginx:1.29.0
+    environment:
+      - API_URL=http://10.1.134.219:5000
+    volumes:
+      - ./user-app:/usr/share/nginx/html:ro
+      - ./user-app/nginx.template.conf:/etc/nginx/templates/default.conf.template
+    ports:
+      - "3000:80"
+
+  attacker:
+    image: nginx:1.29.0
+    environment:
+      - API_URL=http://10.1.134.219:5000
+    volumes:
+      - ./attacker-app:/usr/share/nginx/html:ro
+      - ./attacker-app/nginx.template.conf:/etc/nginx/templates/default.conf.template
+    ports:
+      - "4000:80"

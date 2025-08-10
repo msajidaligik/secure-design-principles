@@ -1,0 +1,24 @@
+services:
+  web-layer:
+    image: nginx
+    container_name: web-layer-nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./index.html:/usr/share/nginx/html/index.html
+    depends_on:
+      - secure-design
+      - bad-design
+
+  secure-design:
+    image: php:8.2-apache
+    container_name: secure-design
+    volumes:
+      - ./secure-design/:/var/www/
+
+  bad-design:
+    image: php:8.2-apache
+    container_name: bad-design
+    volumes:
+      - ./bad-design/:/var/www/html/

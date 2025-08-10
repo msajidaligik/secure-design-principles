@@ -1,0 +1,8 @@
+services:
+  complete-mediation_non-bypassability-example1:
+    image: php:8.2-apache
+    container_name: complete-mediation_non-bypassability-example1
+    volumes:
+      - ./:/var/www/html/
+    ports:
+      - 80:80

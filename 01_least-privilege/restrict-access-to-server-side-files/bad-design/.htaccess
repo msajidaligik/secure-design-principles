@@ -1,0 +1,4 @@
+<FilesMatch "\.php$">
+    SetHandler None
+</FilesMatch>
+AddType text/plain .php

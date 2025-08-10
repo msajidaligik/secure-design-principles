@@ -1,0 +1,8 @@
+services:
+  example2-insecure-design_client-side-javaScript_WASM-input-validation:
+    image: php:8.2-apache
+    container_name: example2-insecure-design_client-side-javaScript_WASM-input-validation
+    volumes:
+      - ./:/var/www/html/
+    ports:
+      - 80:80
