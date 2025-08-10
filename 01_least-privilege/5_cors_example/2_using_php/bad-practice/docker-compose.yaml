@@ -1,0 +1,32 @@
+services:
+  backend:
+    image: php:8.2-apache
+    container_name: backend
+    ports:
+      - "8000:80"
+    volumes:
+      - ./backend:/var/www/html
+
+  frontend:
+    image: nginx:1.29.0
+    container_name: frontend
+    ports:
+      - "80:80"
+    environment:
+      - API_URL=http://10.1.134.219:8000
+
+    volumes:
+      - ./frontend/nginx.template.conf:/etc/nginx/templates/default.conf.template
+      - ./frontend:/usr/share/nginx/html:ro
+    depends_on:
+      - backend
+
+  attacker:
+    image: nginx:1.29.0
+    environment:
+      - API_URL=http://10.1.134.219:8000
+    volumes:
+      - ./attacker:/usr/share/nginx/html:ro
+      - ./attacker/nginx.template.conf:/etc/nginx/templates/default.conf.template
+    ports:
+      - "81:80"
